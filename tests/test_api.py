@@ -32,7 +32,7 @@ def _make_mock_model():
 @pytest.fixture
 def client():
     mock_model = _make_mock_model()
-    with patch("api.main._model", mock_model):
+    with patch("api.main.load_model", return_value=mock_model):
         from api.main import app
 
         with TestClient(app, raise_server_exceptions=True) as c:
