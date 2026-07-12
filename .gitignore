@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+mlruns/
+mlflow.db
+models/*.joblib
+notebooks/figures/
+.pytest_cache/
+coverage.xml
+.coverage
+dist/
+build/
+*.egg-info/
