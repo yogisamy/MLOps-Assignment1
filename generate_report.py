@@ -507,7 +507,7 @@ def build_report():
         [
             ["GET", "/", "Root health check", '{"status": "ok"}'],
             ["GET", "/health", "Liveness probe", '{"status": "healthy", "model_loaded": true}'],
-            ["POST", "/predict", "Prediction endpoint", '{"prediction": 1, "label": "...", "confidence": 0.82}'],
+            ["POST", "/predict", "Prediction endpoint", '{"prediction": 0|1, "label": "...", "confidence": 0.71}'],
             ["GET", "/metrics", "Prometheus scrape", "Prometheus text format"],
             ["GET", "/docs", "Swagger UI", "Interactive API documentation"],
         ]

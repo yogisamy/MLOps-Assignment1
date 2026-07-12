@@ -186,11 +186,24 @@ minikube service heart-disease-api-service --url
 
 ```json
 {
-  "prediction": 1,
-  "label": "Heart Disease Detected",
-  "confidence": 0.82
+  "prediction": 0,
+  "label": "No Heart Disease",
+  "confidence": 0.2771
 }
 ```
+
+Example payload that predicts heart disease (low max heart rate, exercise-induced
+angina, 3 major vessels, reversible defect):
+
+```json
+{
+  "age": 63, "sex": 1, "cp": 3, "trestbps": 145, "chol": 233,
+  "fbs": 1, "restecg": 0, "thalach": 108, "exang": 1,
+  "oldpeak": 2.3, "slope": 2, "ca": 3, "thal": 3
+}
+```
+
+Response: `{"prediction": 1, "label": "Heart Disease Detected", "confidence": 0.7089}`
 
 ---
 
