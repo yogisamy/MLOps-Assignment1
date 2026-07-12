@@ -522,7 +522,7 @@ def build_report():
         "docker run -p 8000:8000 heart-disease-api:latest",
         "",
         "# Full stack with monitoring",
-        "docker-compose up --build",
+        "docker compose up --build",
         "",
         "# Test prediction",
         'curl -X POST http://localhost:8000/predict \\',
@@ -634,7 +634,7 @@ def build_report():
 
     heading2(doc, "9.3 Prometheus + Grafana Stack")
     body(doc, (
-        "Running docker-compose up brings up all three services. Prometheus scrapes the API's "
+        "Running docker compose up brings up all three services. Prometheus scrapes the API's "
         "/metrics endpoint every 15 seconds (configured in monitoring/prometheus.yml). "
         "Grafana connects to Prometheus as a data source and allows building dashboards "
         "tracking request rates, prediction counts, and latency percentiles."
@@ -682,7 +682,7 @@ def build_report():
         ("Run tests", "PYTHONPATH=. pytest tests/ -v --cov=src --cov=api"),
         ("Start API", "PYTHONPATH=. uvicorn api.main:app --reload"),
         ("Run inference demo", "PYTHONPATH=. python notebooks/02_inference.py"),
-        ("Full Docker stack", "docker-compose up --build"),
+        ("Full Docker stack", "docker compose up --build"),
         ("Deploy to K8s", "kubectl apply -f k8s/"),
     ]
 

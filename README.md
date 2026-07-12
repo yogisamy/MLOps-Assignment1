@@ -123,7 +123,7 @@ docker run -p 8000:8000 heart-disease-api:latest
 ### Full Stack (API + Prometheus + Grafana)
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 | Service    | URL                    |
