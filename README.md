@@ -52,14 +52,14 @@ MLOps-Assignment1/
 ```bash
 git clone https://github.com/yogisamy/MLOps-Assignment1.git
 cd MLOps-Assignment1
-python -m venv venv && source venv/bin/activate
+python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 ```
 
 ### 2. Download Dataset
 
 ```bash
-python data/download_data.py
+python3 data/download_data.py
 ```
 
 ### 3. Run EDA
