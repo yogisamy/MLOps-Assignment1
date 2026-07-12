@@ -65,14 +65,14 @@ python3 data/download_data.py
 ### 3. Run EDA
 
 ```bash
-PYTHONPATH=. python notebooks/01_eda.py
+PYTHONPATH=. python3 notebooks/01_eda.py
 # Figures saved to notebooks/figures/
 ```
 
 ### 4. Train Models
 
 ```bash
-PYTHONPATH=. python -m src.train
+PYTHONPATH=. python3 -m src.train
 ```
 
 MLflow UI:
