@@ -151,7 +151,7 @@ def build_report():
         ("Assignment", "Assignment 01 (Total Marks: 50)"),
         ("Date of Submission", datetime.date.today().strftime("%B %d, %Y")),
         ("Dataset", "Heart Disease UCI Dataset"),
-        ("Repository", "https://github.com/<your-username>/heart-disease-mlops"),
+        ("Repository", "https://github.com/yogisamy/MLOps-Assignment1"),
     ]
     for label, value in meta_items:
         p = doc.add_paragraph()
@@ -394,8 +394,10 @@ def build_report():
     body(doc, "The following screenshots show the MLflow experiment tracking UI:", italic=True)
     add_figure(doc, "screenshots/mlflow_experiments.png",
                "Figure 7: MLflow Experiments List — heart_disease_classification")
+    add_figure(doc, "screenshots/mlflow_experiments_detail.png",
+               "Figure 8: MLflow Experiment — Run Comparison View")
     add_figure(doc, "screenshots/mlflow_run_detail.png",
-               "Figure 8: MLflow Run Detail — Parameters, Metrics and Artifacts")
+               "Figure 9: MLflow Run Detail — Parameters, Metrics and Artifacts")
 
     add_page_break(doc)
 
@@ -482,9 +484,9 @@ def build_report():
 
     heading2(doc, "6.3 CI/CD Screenshots")
     add_figure(doc, "screenshots/github_actions_run.png",
-               "Figure 9: GitHub Actions — Successful CI Run")
+               "Figure 10: GitHub Actions — Successful CI Run")
     add_figure(doc, "screenshots/github_actions_detail.png",
-               "Figure 10: GitHub Actions — Step Detail with Logs")
+               "Figure 11: GitHub Actions — Step Detail with Logs")
 
     add_page_break(doc)
 
@@ -539,9 +541,11 @@ def build_report():
 
     heading2(doc, "7.4 Docker Screenshots")
     add_figure(doc, "screenshots/docker_build.png",
-               "Figure 11: Docker Image Build Output")
+               "Figure 12: Docker Image Build Output")
     add_figure(doc, "screenshots/docker_predict.png",
-               "Figure 12: Docker Container — /predict Endpoint Response")
+               "Figure 13: Docker Container — /predict Endpoint Response")
+    add_figure(doc, "screenshots/api_health.png",
+               "Figure 14: API /health Endpoint — Model Loaded")
 
     add_page_break(doc)
 
@@ -593,9 +597,11 @@ def build_report():
 
     heading2(doc, "8.5 Deployment Screenshots")
     add_figure(doc, "screenshots/k8s_pods.png",
-               "Figure 13: kubectl get pods — 2 Replicas Running")
+               "Figure 15: kubectl get pods — 2 Replicas Running")
     add_figure(doc, "screenshots/k8s_service.png",
-               "Figure 14: kubectl get services — LoadBalancer Exposed")
+               "Figure 16: kubectl get services — LoadBalancer Exposed")
+    add_figure(doc, "screenshots/k8s_all_resources.png",
+               "Figure 17: kubectl get all — Full Deployment State")
 
     add_page_break(doc)
 
@@ -645,10 +651,14 @@ def build_report():
     )
 
     heading2(doc, "9.4 Monitoring Screenshots")
+    add_figure(doc, "screenshots/prometheus_targets.png",
+               "Figure 18: Prometheus — Scrape Targets (API Endpoint UP)")
     add_figure(doc, "screenshots/prometheus_metrics.png",
-               "Figure 15: Prometheus — api_requests_total Metric")
+               "Figure 19: Prometheus — api_requests_total Metric")
+    add_figure(doc, "screenshots/api_metrics_raw.png",
+               "Figure 20: Raw /metrics Endpoint — Prometheus Text Format")
     add_figure(doc, "screenshots/grafana_dashboard.png",
-               "Figure 16: Grafana Dashboard — API Request Rate and Latency")
+               "Figure 21: Grafana Dashboard — API Request Rate and Latency")
 
     add_page_break(doc)
 
@@ -722,8 +732,7 @@ def build_report():
     bullet(doc, "Scalability: Kubernetes manages replicas, health probes, and rolling updates")
 
     heading2(doc, "10.5 Repository Link")
-    body(doc, "GitHub Repository: https://github.com/<your-username>/heart-disease-mlops")
-    body(doc, "Replace <your-username> with your actual GitHub username after pushing.", italic=True)
+    body(doc, "GitHub Repository: https://github.com/yogisamy/MLOps-Assignment1")
 
     # ── Save ────────────────────────────────────────────────────────────────────
     doc.save(OUTPUT)
