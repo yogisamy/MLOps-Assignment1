@@ -1,7 +1,7 @@
 """Inference helpers shared by API and CLI."""
+
 import os
 import joblib
-import numpy as np
 import pandas as pd
 
 from src.data_processing import NUMERICAL_FEATURES, CATEGORICAL_FEATURES
@@ -12,9 +12,7 @@ BEST_MODEL_PATH = os.path.join(MODELS_DIR, "best_model.joblib")
 
 def load_model(path: str = BEST_MODEL_PATH):
     if not os.path.exists(path):
-        raise FileNotFoundError(
-            f"Model not found at {path}. Run `python -m src.train` first."
-        )
+        raise FileNotFoundError(f"Model not found at {path}. Run `python -m src.train` first.")
     return joblib.load(path)
 
 

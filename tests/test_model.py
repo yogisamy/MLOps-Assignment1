@@ -1,8 +1,8 @@
 """Unit tests for model training and prediction."""
+
 import numpy as np
 import pandas as pd
 import pytest
-from sklearn.pipeline import Pipeline
 
 from src.data_processing import build_preprocessor, prepare_data
 from src.train import (

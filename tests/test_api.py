@@ -1,17 +1,24 @@
 """Integration tests for FastAPI endpoints."""
+
 import numpy as np
-import pandas as pd
 import pytest
-import joblib
-import os
-import tempfile
 from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
 
 SAMPLE_PAYLOAD = {
-    "age": 63, "sex": 1, "cp": 3, "trestbps": 145,
-    "chol": 233, "fbs": 1, "restecg": 0, "thalach": 150,
-    "exang": 0, "oldpeak": 2.3, "slope": 0, "ca": 0, "thal": 1.0,
+    "age": 63,
+    "sex": 1,
+    "cp": 3,
+    "trestbps": 145,
+    "chol": 233,
+    "fbs": 1,
+    "restecg": 0,
+    "thalach": 150,
+    "exang": 0,
+    "oldpeak": 2.3,
+    "slope": 0,
+    "ca": 0,
+    "thal": 1.0,
 }
 
 
@@ -27,6 +34,7 @@ def client():
     mock_model = _make_mock_model()
     with patch("api.main._model", mock_model):
         from api.main import app
+
         with TestClient(app, raise_server_exceptions=True) as c:
             yield c
 

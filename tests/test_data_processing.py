@@ -1,16 +1,14 @@
 """Unit tests for data_processing module."""
+
 import numpy as np
 import pandas as pd
 import pytest
-from sklearn.pipeline import Pipeline
 
 from src.data_processing import (
     build_preprocessor,
     get_feature_names,
     get_missing_summary,
     prepare_data,
-    CATEGORICAL_FEATURES,
-    NUMERICAL_FEATURES,
     TARGET,
 )
 

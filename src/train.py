@@ -1,13 +1,8 @@
 """Train, tune, evaluate and log two classification models with MLflow."""
+
 import os
 import warnings
 import joblib
-import numpy as np
-import pandas as pd
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import seaborn as sns
 import mlflow
 import mlflow.sklearn
 from sklearn.pipeline import Pipeline
@@ -24,7 +19,6 @@ from sklearn.metrics import (
     recall_score,
     f1_score,
     roc_auc_score,
-    confusion_matrix,
     RocCurveDisplay,
     ConfusionMatrixDisplay,
 )
@@ -34,6 +28,11 @@ from src.data_processing import (
     prepare_data,
     build_preprocessor,
 )
+
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt  # noqa: E402
 
 warnings.filterwarnings("ignore")
 
@@ -87,7 +86,9 @@ def train_logistic_regression(X_train, y_train, preprocessor):
 
 
 def train_random_forest(X_train, y_train, preprocessor):
-    pipe = Pipeline([("preprocessor", preprocessor), ("clf", RandomForestClassifier(random_state=42))])
+    pipe = Pipeline(
+        [("preprocessor", preprocessor), ("clf", RandomForestClassifier(random_state=42))]
+    )
 
     param_grid = {
         "clf__n_estimators": [100, 200],
@@ -164,7 +165,6 @@ def run_training():
 
     df = load_data()
     X_train, X_test, y_train, y_test = prepare_data(df)
-    preprocessor = build_preprocessor()
 
     results = {}
 
@@ -179,10 +179,22 @@ def run_training():
         lr_cv = run_cross_validation(lr_model, X_train, y_train)
         print(f"  LR CV (roc_auc): {lr_cv['cv_roc_auc_mean']:.4f} ± {lr_cv['cv_roc_auc_std']:.4f}")
         lr_run_id = log_model_to_mlflow(
-            lr_model, "logistic_regression", lr_params, lr_metrics, lr_cv,
-            X_train, X_test, y_train, y_test, tmp_dir
+            lr_model,
+            "logistic_regression",
+            lr_params,
+            lr_metrics,
+            lr_cv,
+            X_train,
+            X_test,
+            y_train,
+            y_test,
+            tmp_dir,
         )
-        results["logistic_regression"] = {"metrics": lr_metrics, "cv_metrics": lr_cv, "run_id": lr_run_id}
+        results["logistic_regression"] = {
+            "metrics": lr_metrics,
+            "cv_metrics": lr_cv,
+            "run_id": lr_run_id,
+        }
 
         # --- Random Forest ---
         print("Training Random Forest...")
@@ -194,8 +206,16 @@ def run_training():
         rf_cv = run_cross_validation(rf_model, X_train, y_train)
         print(f"  RF CV (roc_auc): {rf_cv['cv_roc_auc_mean']:.4f} ± {rf_cv['cv_roc_auc_std']:.4f}")
         rf_run_id = log_model_to_mlflow(
-            rf_model, "random_forest", rf_params, rf_metrics, rf_cv,
-            X_train, X_test, y_train, y_test, tmp_dir
+            rf_model,
+            "random_forest",
+            rf_params,
+            rf_metrics,
+            rf_cv,
+            X_train,
+            X_test,
+            y_train,
+            y_test,
+            tmp_dir,
         )
         results["random_forest"] = {"metrics": rf_metrics, "cv_metrics": rf_cv, "run_id": rf_run_id}
 
