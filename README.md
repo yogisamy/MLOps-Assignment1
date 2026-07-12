@@ -56,6 +56,10 @@ python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+> **Note:** Run `source venv/bin/activate` in every new terminal session before
+> using the commands below. All commands use `python3` explicitly, since on some
+> systems `python` still points to Python 2.
+
 ### 2. Download Dataset
 
 ```bash
@@ -223,6 +227,16 @@ See `.github/workflows/ci.yml`.
 - **Prometheus** scrapes `/metrics` every 15 s  
 - **Grafana** dashboards at `http://localhost:3000` (admin/admin)  
 - Metrics exposed: `api_requests_total`, `api_request_latency_seconds`, `predictions_total`
+
+---
+
+## Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `SyntaxError` on an f-string line | `python` points to Python 2 | Use `python3`, or activate the venv first |
+| `ModuleNotFoundError` / `incompatible architecture` errors even after activating the venv | The project folder was renamed/moved after the venv was created — `venv/bin/activate` hardcodes the old absolute path, so `python3` silently falls back to a system Python | Recreate the venv: `rm -rf venv && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt` |
+| `Model not found at models/best_model.joblib` when starting the API | Models have not been trained yet | Run `PYTHONPATH=. python3 -m src.train` first |
 
 ---
 
