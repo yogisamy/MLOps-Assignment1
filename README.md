@@ -4,6 +4,8 @@
 **Dataset:** Heart Disease UCI Dataset (UCI ML Repository)  
 **Stack:** Python · Scikit-learn · MLflow · FastAPI · Docker · Kubernetes · GitHub Actions · Prometheus · Grafana
 
+🎥 **Video Demo:** [MLOPS-assignement.mov](https://github.com/yogisamy/MLOps-Assignment1/blob/main/MLOPS-assignement.mov) — end-to-end pipeline walkthrough (tests, training, MLflow, CI/CD, Docker, API, monitoring, Kubernetes)
+
 ---
 
 ## Project Structure
