@@ -9,13 +9,14 @@
 ## Project Structure
 
 ```
-Assignment1/
+MLOps-Assignment1/
 ├── data/
 │   ├── download_data.py        # Dataset download script
-│   └── heart.csv               # Downloaded dataset (git-ignored)
+│   └── heart.csv               # Cleaned dataset (committed for reproducibility)
 ├── notebooks/
 │   ├── 01_eda.py               # EDA script (generates figures/)
-│   └── figures/                # EDA plots (auto-generated)
+│   ├── 02_inference.py         # Inference demo script
+│   └── figures/                # EDA plots (auto-generated, git-ignored)
 ├── src/
 │   ├── data_processing.py      # Preprocessing pipeline
 │   ├── train.py                # Model training + MLflow logging
@@ -32,7 +33,10 @@ Assignment1/
 │   └── service.yaml
 ├── monitoring/
 │   └── prometheus.yml
+├── screenshots/                # Evidence screenshots for the report
 ├── .github/workflows/ci.yml    # GitHub Actions CI/CD
+├── generate_report.py          # Builds Assignment01_Report.docx
+├── Assignment01_Report.docx    # Final written report
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
@@ -46,8 +50,8 @@ Assignment1/
 ### 1. Clone & Install
 
 ```bash
-git clone <repo-url>
-cd Assignment1
+git clone https://github.com/yogisamy/MLOps-Assignment1.git
+cd MLOps-Assignment1
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -188,24 +192,28 @@ minikube service heart-disease-api-service --url
 
 ## Models
 
-| Model               | Tuning           | Metrics tracked             |
-|---------------------|------------------|-----------------------------|
-| Logistic Regression | GridSearchCV     | Accuracy, Precision, Recall |
-| Random Forest       | GridSearchCV     | F1, ROC-AUC                 |
+| Model               | Hyperparameter Tuning                                          |
+|---------------------|----------------------------------------------------------------|
+| Logistic Regression | GridSearchCV — C, solver (5-fold StratifiedKFold)              |
+| Random Forest       | GridSearchCV — n_estimators, max_depth, min_samples_split      |
 
-Best model is saved to `models/best_model.joblib` and selected by ROC-AUC.
+Both models are evaluated on Accuracy, Precision, Recall, F1 and ROC-AUC
+(test set + 5-fold cross-validation), and all runs are logged to MLflow.
+The best model is selected by test ROC-AUC and saved to `models/best_model.joblib`.
 
 ---
 
 ## CI/CD (GitHub Actions)
 
-Pipeline triggers on push/PR to `main`:
+Pipeline triggers on push to `main`/`develop` and PRs to `main`:
 
 1. **Lint** – flake8 + black check  
-2. **Unit tests** – pytest with coverage report  
-3. **Train** – downloads data, trains models, logs to MLflow  
-4. **Docker build** – builds image and runs smoke test  
+2. **Download data** – `data/download_data.py`  
+3. **Unit tests** – pytest with coverage report (uploaded as artifact)  
+4. **Train** – trains both models, logs to MLflow, uploads model artifacts  
+5. **Docker build & smoke test** – builds the image, runs the container and curls `/health`  
 
+The pipeline fails fast: any lint, test, training or smoke-test error stops the run.
 See `.github/workflows/ci.yml`.
 
 ---
